@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="en"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Departments</title>
+</head>
+
+<body>
+     
+      <h2>departments list</h2>
+      <a th:href="@{/department/new}">Add New department</a>
+      
+      <table border="1px">
+          <tr>
+              <th>ID</th>
+              <th>Name</th>
+              <th>Description</th>
+          </tr>
+      
+          <p th:if="${departments} != null" th:text="|Number of available departments: ${#lists.size(departments)}|"></p>
+      
+          <tr th:if="${#lists.isEmpty(departments)}">
+              <td colspan="4">The department list is empty</td>
+          </tr>
+          <tr th:each="department : ${departments}">
+              <td th:text="${department.id}">ID</td>
+              <td th:text="${department.name}">Name</td>
+              <td th:text="${department.description}">Description</td>
+              <td>
+                  <th:block th:with="id=${department.id}">
+                      <a th:href="@{'/department/update/' + ${id}}">Update</a>
+                      <a th:href="@{'/department/delete/' + ${id}}">Delete</a>
+                  </th:block>
+              </td>
+          </tr>
+      </table>
+      <a th:href="@{/}"> Back to HOME </a>
+
+</body>
+
+</html>
